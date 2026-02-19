@@ -6,7 +6,7 @@ pipeline {
             steps{
                 when {
                     anyOf {
-                        branch 'main'
+                         branch 'main'
                     }
                 }
                bat 'dotnet restore'
