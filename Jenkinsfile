@@ -1,36 +1,34 @@
 pipeline {
     agent any
-    }
-    stages{
-        stage("Restore dependencies"){
-            steps{
-                when {
-                    anyOf {
-                         branch 'main'
-                    }
-                }
-               bat 'dotnet restore'
+
+    stages {
+
+        stage("Restore dependencies") {
+            when {
+                branch 'main'
             }
-        stage("Build the app"){
-            steps{
-                when {
-                    anyOf {
-                        branch 'main'
-                    }
-                }
-               bat 'dotnet build --no-restore'
-            }
-        stage("Run the tests"){
-                when {
-                    anyOf {
-                        branch 'main'
-                    }
-                }
-            steps{
-               bat 'dotnet test --no-build --verbosity normal'
+            steps {
+                bat 'dotnet restore'
             }
         }
-     }
+
+        stage("Build the app") {
+            when {
+                branch 'main'
+            }
+            steps {
+                bat 'dotnet build --no-restore'
+            }
+        }
+
+        stage("Run the tests") {
+            when {
+                branch 'main'
+            }
+            steps {
+                bat 'dotnet test --no-build --verbosity normal'
+            }
+        }
+
     }
 }
-    
